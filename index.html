@@ -26,13 +26,11 @@ AFRAME.registerComponent('random-color', {
 </head>
 
 <body>
-  <a-scene firebase="apiKey: AIzaSyDjfs_cOxyZIydMnLPbwr6O47dIcImKkPA;
-                     authDomain: aframefirebasemultichannels.firebaseapp.com;
-                     databaseURL: https://aframefirebasemultichannels.firebaseio.com;
-                     storageBucket: aframefirebasemultichannels.appspot.com;
+  <a-scene firebase="apiKey: AIzaSyCysZ8Z3PWwikzhUXhSncUVLoYsOjvEUko;
+                     authDomain: aframe-firebase.firebaseapp.com;
+                     databaseURL: https://aframe-firebase.firebaseio.com;
+                     storageBucket: ;
                      channel: MultiVive;">
-    <!-- doc https://github.com/ngokevin/aframe-firebase-component -->
-    <!-- check https://console.firebase.google.com/project/aframefirebasemultichannels/database/data -->
     <a-assets>
       <!-- Using mixins to decrease amount of data send over the wire. -->
       <a-mixin id="sharedcube"
@@ -67,9 +65,8 @@ AFRAME.registerComponent('random-color', {
     
     <a-sky color="lightblue"></a-sky>
   </a-scene>
-  <!-- 
   <script src="https://aframe.io/aframe-inspector/build/aframe-inspector.js"></script>
-  -->
+
   
 </body>
 </html>
