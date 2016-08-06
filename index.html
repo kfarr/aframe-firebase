@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <title>Aframe firebase multichannel for Vive</title>
+  <script src="http://vatelier.net/MyDemo/aframe-changedCDN.min.js"></script>
+  <script src="http://vatelier.net/MyDemo/PIMVRVive/components/aframe-firebase-component.min.js"></script>
+  <script src="http://vatelier.net/MyDemo/PIMVRVive/components/aabb-collider.js"></script>
+  <script src="http://vatelier.net/MyDemo/PIMVRVive/components/grab.js"></script>
+<script>
+AFRAME.registerComponent('random-color', {
+  dependencies: ['color'],
+  schema: {},
+  update: function () {
+    var el = this.el;
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    setTimeout(function () {
+      el.setAttribute('color', color );
+    });
+  }
+});
+</script>
+</head>
+
+<body>
+  <a-scene firebase="apiKey: AIzaSyDjfs_cOxyZIydMnLPbwr6O47dIcImKkPA;
+                     authDomain: aframefirebasemultichannels.firebaseapp.com;
+                     databaseURL: https://aframefirebasemultichannels.firebaseio.com;
+                     storageBucket: aframefirebasemultichannels.appspot.com;
+                     channel: MultiVive;">
+    <!-- doc https://github.com/ngokevin/aframe-firebase-component -->
+    <!-- check https://console.firebase.google.com/project/aframefirebasemultichannels/database/data -->
+    <a-assets>
+      <!-- Using mixins to decrease amount of data send over the wire. -->
+      <a-mixin id="sharedcube"
+              geometry="primitive: box;" scale="0.1 0.1 0.1"
+              color="red"></a-mixin>
+      <a-mixin id="sharedsphere"
+              geometry="primitive: sphere;" scale="0.1 0.1 0.1"
+              color="blue"></a-mixin>
+      <a-mixin id="sharedhand"
+              geometry="primitive: box; depth: 0.1; height: 0.3; width: 0.1"
+              color="white"></a-mixin>
+    </a-assets>
+    
+      <!-- Hands -->
+      <a-entity hand-controls="left" mixin="sharedhand" aabb-collider="objects: .cube;" grab id="hand-controls-left" firebase-broadcast="components: mixin, position, rotation"></a-entity>
+      <a-entity hand-controls="right" mixin="sharedhand" aabb-collider="objects: .cube;" grab id="hand-controls-left" firebase-broadcast="components: mixin, position, rotation"></a-entity>
+    
+    <a-entity>
+    <a-box id="sharedcubeid1" class="cube" mixin="sharedcube" position="-0.3 0 -0.5" firebase-broadcast="components: mixin, position"></a-box>
+    <a-box id="sharedcubeid2" class="cube" mixin="sharedcube" position="0.0 0 -0.5" firebase-broadcast="components: mixin, position"></a-box>
+    <a-box id="sharedcubeid3" class="cube" mixin="sharedcube" position="0.3 0 -0.5" firebase-broadcast="components: mixin, position"></a-box>
+    
+    <a-box id="sharedsphere1" class="cube" mixin="sharedsphere" position="-0.3 0 -0.2" firebase-broadcast="components: mixin, position"></a-box>
+    <a-box id="sharedsphere2" class="cube" mixin="sharedsphere" position="0.0 0 -0.2" firebase-broadcast="components: mixin, position"></a-box>
+    <a-box id="sharedsphere3" class="cube" mixin="sharedsphere" position="0.3 0 -0.2" firebase-broadcast="components: mixin, position"></a-box>
+      </a-entity>
+    
+    <a-box position="-0.2 0 -0.2" depth="0.1" height="1" width="0.1" color="brown"></a-box>
+    <a-box position="0.2 0 -0.2" depth="0.1" height="1" width="0.1" color="brown"></a-box>
+    <a-box position="0.0 -0.2 -0.2" depth="0.1" height="0.1" width="1" color="brown"></a-box>
+    <a-box position="0.0 0.2 -0.2" depth="0.1" height="0.12" width="1" color="brown"></a-box>
+    
+    <a-sky color="lightblue"></a-sky>
+  </a-scene>
+  <!-- 
+  <script src="https://aframe.io/aframe-inspector/build/aframe-inspector.js"></script>
+  -->
+  
+</body>
+</html>
