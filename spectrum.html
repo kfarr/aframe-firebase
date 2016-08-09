@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>A-Frame Audio Visualizer Component - Spectrum</title>
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe.min.js"></script>
+
+    <!-- <script src="https://aframe.io/releases/0.2.0/aframe.min.js"></script> -->
+    <script src="https://rawgit.com/ngokevin/aframe-entity-generator-component/master/dist/aframe-entity-generator-component.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/aframe-audio-visualizer-components/master/dist/aframe-audio-visualizer-components.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/aframe-layout-component/master/dist/aframe-layout-component.min.js"></script>
+    <script src="components/scale-y-color.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="bar" geometry="primitive: box" material="color: black"
+                          scale-y-color="from: 100 160 100; to: 240 180 180; maxScale: 15">
+        </a-mixin>
+
+        <audio id="song" autoplay loop src="audio/John_Wesley_Coleman_-_07_-_Tequila_10_Seconds.mp3"></audio>
+        <!-- <audio id="song" autoplay loop src="John_Wesley_Coleman_-_07_-_Tequila_10_Seconds.mp3"></audio> -->
+      </a-assets>
+
+      <a-entity audio-visualizer="src: #song; smoothingTimeConstant: 0.9"
+                audio-visualizer-spectrum-scale="max: 50; multiplier: 0.06"
+                entity-generator="mixin: bar; num: 256"
+                layout="type: circle; radius: 10"
+                rotation="0 180 0">
+      </a-entity>
+
+
+
+      <a-light type="ambient" color="#222"></a-light>
+      <a-light type="point" position="0 1 0" intensity="2"></a-light>
+      <a-circle color="#333" opacity="0.8" rotation="-90 0 0" radius="12"
+                roughness="1"></a-circle>
+      <a-sky rotation="0 215 0" src="images/3947442962_8751d77a86_o.jpg" ></a-sky>
+
+
+      <a-light type="ambient" color="#444"></a-light>
+      <a-light type="point" intensity="1.2"></a-light>
+
+      <a-sphere color="#F22" radius="0.2" shader="flat" position="-3 3 -8">
+        <a-animation attribute="position" dur="10000" from="-3 3 -8" to="0 0 0" repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere color="#2F2" radius="0.2" shader="flat" position="-3 3 -8">
+        <a-animation attribute="position" dur="12000" from="0 3 -10" to="0 0 0" repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere color="#22F" radius="0.2" shader="flat" position="-3 3 -8">
+        <a-animation attribute="position" dur="14000" from="3 3 -12" to="0 0 0" repeat="indefinite"></a-animation>
+      </a-sphere>
+
+    </a-scene>
+
+    <!-- <audio id="soundHandle" style="display:none;"></audio> -->
+
+<script type="text/javascript">
+
+var soundHandle = document.getElementById('song');
+
+$(document).ready(function() {
+    addEventListener('touchstart', function (e) {
+        soundHandle.src = 'audio/John_Wesley_Coleman_-_07_-_Tequila_10_Seconds.mp3';
+        soundHandle.loop = true;
+        soundHandle.play();
+        // soundHandle.pause();
+    });
+});
+
+</script>
+
+    <!-- <script src="https://aframe.io/aframe-inspector/build/aframe-inspector.js"></script> -->
+  </body>
+</html>
